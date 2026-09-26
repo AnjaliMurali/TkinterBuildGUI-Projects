@@ -1,0 +1,422 @@
+VOICE NOTEPAD — INSTALLATION GUIDE
+Windows and macOS
+
+BEFORE YOU START
+- Python 3.9 or newer
+- VS Code
+- A working microphone
+- SpeechRecognition
+- PyAudio
+- Your Voice Notepad Python program
+
+Pygame is NOT required for this project. If it is already installed, that is fine.
+
+==================================================
+WINDOWS
+==================================================
+
+1. CHECK PYTHON
+
+Open your project in VS Code.
+Go to Terminal → New Terminal.
+
+Run:
+
+python --version
+
+You should see something similar to:
+
+Python 3.12.x
+
+
+2. CHECK PIP
+
+Run:
+
+python -m pip --version
+
+Use "python -m pip" rather than just "pip" to help ensure packages
+are installed into the same Python environment that runs your program.
+
+
+3. INSTALL SPEECHRECOGNITION
+
+Run:
+
+python -m pip install SpeechRecognition
+
+
+4. INSTALL PYAUDIO
+
+Run:
+
+python -m pip install PyAudio
+
+PyAudio is required because the Voice Notepad uses the microphone.
+
+
+IF PYAUDIO FAILS ON WINDOWS
+
+If you see errors such as:
+
+- Could not build wheels for PyAudio
+- Microsoft Visual C++ errors
+
+Do not immediately install random packages.
+
+First check:
+
+python --version
+python -m pip --version
+
+Then try:
+
+python -m pip install --upgrade pip
+python -m pip install PyAudio
+
+If it still fails, keep the complete error message.
+The exact Python version and error determine the next solution.
+
+
+5. TEST THE INSTALLATION
+
+Run:
+
+python -c "import speech_recognition as sr; import pyaudio; print('Everything is installed correctly!')"
+
+Expected result:
+
+Everything is installed correctly!
+
+
+6. TEST THE MICROPHONE
+
+Create a file called:
+
+mic_test.py
+
+Paste this code into it:
+
+import speech_recognition as sr
+
+print("Starting microphone test...")
+
+try:
+    print("Creating microphone...")
+    mic = sr.Microphone()
+
+    print("Microphone found!")
+
+    print("\nAvailable microphones:")
+
+    for index, name in enumerate(
+        sr.Microphone.list_microphone_names()
+    ):
+        print(index, name)
+
+except Exception as e:
+    print("ERROR:")
+    print(e)
+
+
+Run:
+
+python mic_test.py
+
+You should see the available microphone(s).
+
+
+7. CHECK WINDOWS MICROPHONE PERMISSIONS
+
+Go to:
+
+Settings → Privacy & security → Microphone
+
+Make sure:
+
+- Microphone access is ON
+- Apps are allowed to access the microphone
+- The application being used, such as VS Code, is allowed to access it
+
+
+8. RUN THE VOICE NOTEPAD
+
+For example:
+
+python speech_to_text.py
+
+Replace speech_to_text.py with the actual name of your program if necessary.
+
+
+==================================================
+macOS
+==================================================
+
+1. CHECK PYTHON
+
+Open your project in VS Code.
+Open a Terminal.
+
+Run:
+
+python3 --version
+
+You should see something similar to:
+
+Python 3.12.x
+
+
+2. CHECK PIP
+
+Run:
+
+python3 -m pip --version
+
+On macOS, use "python3" and "python3 -m pip" in these instructions.
+
+
+3. INSTALL SPEECHRECOGNITION
+
+Run:
+
+python3 -m pip install SpeechRecognition
+
+
+4. INSTALL PYAUDIO — FIRST TRY
+
+Run:
+
+python3 -m pip install PyAudio
+
+
+IF PYAUDIO FAILS ON macOS
+
+PyAudio may need the PortAudio library.
+
+First check whether Homebrew is installed:
+
+brew --version
+
+If Homebrew is available, run:
+
+brew install portaudio
+
+Then install PyAudio again:
+
+python3 -m pip install PyAudio
+
+If "brew" is not recognized, Homebrew is not installed.
+Install Homebrew from its official documentation before continuing.
+
+Do not download random PyAudio files from the internet.
+
+
+5. VERIFY PYAUDIO
+
+Run:
+
+python3 -c "import pyaudio; print('PyAudio is installed!')"
+
+Expected result:
+
+PyAudio is installed!
+
+
+6. VERIFY SPEECHRECOGNITION + PYAUDIO
+
+Run:
+
+python3 -c "import speech_recognition as sr; import pyaudio; print('Everything is installed correctly!')"
+
+Expected result:
+
+Everything is installed correctly!
+
+
+7. TEST THE MICROPHONE
+
+Use the same mic_test.py file shown in the Windows section.
+
+Run:
+
+python3 mic_test.py
+
+You should see the available microphone(s).
+
+
+8. ALLOW MICROPHONE ACCESS ON macOS
+
+Go to:
+
+Apple menu 
+→ System Settings
+→ Privacy & Security
+→ Microphone
+
+Make sure the application running your program, such as VS Code
+or Terminal, is allowed to access the microphone.
+
+If macOS asks for microphone permission, choose:
+
+Allow
+
+
+9. RUN THE VOICE NOTEPAD
+
+For example:
+
+python3 speech_to_text.py
+
+
+==================================================
+TROUBLESHOOTING CHECKLIST
+==================================================
+
+Problem:
+No module named speech_recognition
+
+Solution:
+Install SpeechRecognition using the same Python that runs the program.
+
+
+Problem:
+No module named pyaudio
+
+Solution:
+Install PyAudio using the same Python environment.
+
+
+Problem:
+Could not find PyAudio
+
+Solution:
+PyAudio is not available to the Python running the program.
+
+
+Problem:
+PyAudio fails on Windows
+
+Solution:
+Check Python and pip versions, upgrade pip, and retry.
+If it still fails, keep the complete error message.
+
+
+Problem:
+PyAudio fails on macOS
+
+Solution:
+Install PortAudio with Homebrew:
+
+brew install portaudio
+
+Then:
+
+python3 -m pip install PyAudio
+
+
+Problem:
+Microphone not found
+
+Solution:
+Check the microphone connection and operating-system permissions.
+
+
+Problem:
+Mac cannot access microphone
+
+Solution:
+Go to:
+
+System Settings → Privacy & Security → Microphone
+
+and allow VS Code or Terminal.
+
+
+Problem:
+Program opens but does not hear speech
+
+Solution:
+Run mic_test.py first.
+
+
+Problem:
+Multiple microphones appear
+
+Solution:
+Check the microphone list and select the appropriate microphone
+if your program needs a specific device.
+
+
+Problem:
+Program works in one terminal but not another
+
+Solution:
+Check which Python environment is being used.
+
+
+==================================================
+IMPORTANT TROUBLESHOOTING RULE
+==================================================
+
+If something does not work, do NOT immediately reinstall everything.
+
+First check:
+
+1. Python version
+2. pip version
+3. Whether SpeechRecognition can be imported
+4. Whether PyAudio can be imported
+5. Whether Python can see the microphone
+
+
+WINDOWS — THREE QUICK CHECKS
+
+python --version
+
+python -m pip --version
+
+python -c "import speech_recognition as sr; import pyaudio; print('OK')"
+
+
+macOS — THREE QUICK CHECKS
+
+python3 --version
+
+python3 -m pip --version
+
+python3 -c "import speech_recognition as sr; import pyaudio; print('OK')"
+
+
+==================================================
+RECOMMENDED PROJECT FOLDER
+==================================================
+
+Voice_Notepad/
+│
+├── speech_to_text.py
+├── mic_test.py
+└── requirements.txt
+
+
+requirements.txt should contain:
+
+SpeechRecognition
+PyAudio
+
+
+Then install the requirements:
+
+Windows:
+
+python -m pip install -r requirements.txt
+
+macOS:
+
+python3 -m pip install -r requirements.txt
+
+IMPORTANT:
+On macOS, if PyAudio fails, install PortAudio with Homebrew first:
+
+brew install portaudio
+
+Then run the requirements installation again.
